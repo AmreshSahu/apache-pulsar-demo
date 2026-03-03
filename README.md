@@ -44,7 +44,7 @@ graph LR
 
 ### Infrastructure
 
-#### [NEW] docker-compose.yml
+####  docker-compose.yml
 - Runs **Apache Pulsar standalone** (image: `apachepulsar/pulsar:3.2.0`)
 - Exposes ports `6650` (broker) and `8080` (admin UI)
 
@@ -52,11 +52,11 @@ graph LR
 
 ### Producer Microservice (`pulsar-producer`, port 8080)
 
-#### [NEW] pom.xml
+####  pom.xml
 - Spring Boot 3.x, `spring-boot-starter-web`
 - `pulsar-client` (Apache Pulsar Java client 3.x)
 
-#### [NEW] application.yml
+####  application.yml
 ```yaml
 server:
   port: 8080
@@ -65,27 +65,27 @@ pulsar:
   topic: persistent://public/default/order-topic
 ```
 
-#### [NEW] MessageRequest.java  
+####  MessageRequest.java  
 DTO with `id`, `content`, `timestamp` fields.
 
-#### [NEW] PulsarProducerConfig.java  
+####  PulsarProducerConfig.java  
 Spring `@Configuration` that creates a `PulsarClient` bean.
 
-#### [NEW] MessageProducerService.java  
+####  MessageProducerService.java  
 `@Service` that creates a Pulsar `Producer<String>` and sends JSON-serialized messages.
 
-#### [NEW] MessageController.java  
+####  MessageController.java  
 `POST /api/messages` — accepts `MessageRequest` body and delegates to producer service.
 
 ---
 
 ### Consumer Microservice (`pulsar-consumer`, port 8081)
 
-#### [NEW] pom.xml
+####  pom.xml
 - Spring Boot 3.x, `spring-boot-starter-web`, `spring-boot-starter-data-jpa`
 - `pulsar-client`, `com.h2database:h2`
 
-#### [NEW] application.yml
+####  application.yml
 ```yaml
 server:
   port: 8081
@@ -99,16 +99,16 @@ spring:
   h2.console.enabled: true
 ```
 
-#### [NEW] Message.java  
+####  Message.java  
 JPA `@Entity` with `id`, `content`, `receivedAt` fields.
 
-#### [NEW] MessageRepository.java  
+####  MessageRepository.java  
 `extends JpaRepository<Message, Long>`
 
-#### [NEW] PulsarConsumerListener.java  
+####  PulsarConsumerListener.java  
 `@Component` that starts a Pulsar consumer in `@PostConstruct` on its own thread and persists every message via `MessageRepository`.
 
-#### [NEW] MessageQueryController.java  
+####  MessageQueryController.java  
 `GET /api/messages` — returns all persisted messages from H2.
 
 ---
