@@ -1,4 +1,4 @@
-# Apache Pulsar POC - Implementation Plan
+# Apache Pulsar(https://pulsar.apache.org/docs/next/) POC - Implementation Plan
 
 A proof-of-concept demonstrating asynchronous messaging between two Spring Boot microservices via **Apache Pulsar**. The producer accepts HTTP requests and publishes messages to a Pulsar topic. The consumer listens to that topic and persists each message to an **H2 in-memory database**, also exposing a REST endpoint to query stored messages.
 
