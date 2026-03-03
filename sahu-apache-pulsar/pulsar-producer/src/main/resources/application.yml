@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+pulsar:
+  broker-url: pulsar://localhost:6650
+  topic: persistent://public/default/sahu-order-topic
+
+spring:
+  application:
+    name: pulsar-producer
+
+logging:
+  level:
+    com.poc: DEBUG
+    org.apache.pulsar: WARN
